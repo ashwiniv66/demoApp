@@ -22,8 +22,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/h2-console").permitAll()
+                        auth.requestMatchers("/authenticate").permitAll()
                         .anyRequest().authenticated()) // this will enable authentication for all our endpoints in our applications
                 .httpBasic(withDefaults()); // use it when you dont want to enter username and password
         return http.build();
